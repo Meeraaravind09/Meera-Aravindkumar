@@ -1,0 +1,143 @@
+CREATE DATABASE EMP
+use Emp
+Create Schema HR
+Create Table HR.EmployeeMaster(Empid Varchar(5) Primary Key,
+EmpName Varchar(20), EmpCity Varchar(20))
+
+Create Table HR.EmployeeSalary(Empid Varchar(5) Primary Key,
+SalaryMonth Varchar(5), Salary int)
+
+Insert Into HR.EmployeeMaster Values('E1','Ajay','Delhi'),
+('E2','Amit','Pune'),
+('E3','Ruchi','Chennai'),
+('E4','Ashok','Mumbai'),
+('E5','Neelam','Agra')
+
+Insert into HR.EmployeeSalary Values
+('E1','Jan',48000),
+('E2','Jan',65000),
+('E3','Feb',38000),
+('E10','Mar',17800),
+('E11','Mar',55000)
+
+Select * from HR.EmployeeMaster
+Select * from HR.EmployeeSalary
+-- Inner Join
+Select * from HR.EmployeeMaster
+Inner Join
+HR.EmployeeSalary
+ON
+HR.EmployeeMaster.Empid=HR.EmployeeSalary.Empid
+------
+Select HR.EmployeeMaster.Empid, HR.EmployeeMaster.EmpName,
+HR.EmployeeMaster.EmpCity, HR.EmployeeSalary.SalaryMonth,
+HR.EmployeeSalary.Salary
+From HR.EmployeeMaster
+Inner Join
+HR.EmployeeSalary
+ON
+HR.EmployeeMaster.Empid=HR.EmployeeSalary.Empid
+-- Table Alias
+Select M.Empid, M.EmpName,M.EmpCity, S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Inner Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+-- Left Join/ Left Outer Join
+Select M.Empid, M.EmpName,M.EmpCity, S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Left Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+-- Right Join
+Select M.Empid, M.EmpName,M.EmpCity, S.Empid,S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Right Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+order by M.Empid Asc
+-- Full Outer Join
+Select M.Empid, M.EmpName,M.EmpCity, S.Empid,S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Full Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+order by M.Empid Asc
+-- Left Anti Join
+Select M.Empid, M.EmpName,M.EmpCity, S.Empid,S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Left Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+Where S.Empid IS NULL
+--Right Anti Join
+Select M.Empid, M.EmpName,M.EmpCity, S.Empid,S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Right Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+Where M.Empid IS NULL
+--Unmatch record from 2 table
+Select M.Empid, M.EmpName,M.EmpCity, S.Empid,S.SalaryMonth,S.Salary
+From HR.EmployeeMaster as M
+Full Join
+HR.EmployeeSalary as S
+ON
+M.Empid=S.Empid
+Where M.EMpid is NULL OR S.EMpid IS NULL
+ 
+-- Cross/Cartesian Join (no common column)
+Create table Computer(Company Varchar(10),Proccessor Varchar(10),
+HDD varchar(10), RAM varchar(10), Amount1 Int)
+
+Create table Accessories(Screen Varchar(10),Mouse Varchar(10),
+Kboard Varchar(10), Amount2 INT)
+
+ Insert into Computer values ('Dell','I3','520 GB','4 GB',10000),
+ ('Dell','I5','1 TB','8 GB',15000),
+ ('HP','I3','520 GB','4 GB',9000),
+  ('HP','I5','1 TB','8 GB',14000)
+
+Insert into Accessories Values ('15 Inches','Optical','101 Keys', 5000),
+ ('14 Inches','Wireless','Multimedia', 6000)
+
+Select C.Company, C.Proccessor,C.HDD,C.RAM,
+A.Screen,A.Mouse,A.Kboard,C.Amount1+A.Amount2 as 'Total Amount'
+From Computer As C
+Cross Join
+Accessories As A 
+Order by C.Company
+-- Self Join (Inner join on a single table)
+Create Table Empl(Ecode INT Primary Key, Ename Varchar(10), 
+ReportTo INT)
+
+Insert into Empl values(10,'Ajay', 100),
+(11,'Vijay', 200),
+(12,'Ali', 300),
+(200,'David', 1000),
+(13,'Deepak', 400),
+(300,'Smith', 2000),
+(14,'Zaid',500),
+(2000,'Stokes',2222)
+
+Select A.Ecode, A.Ename, B.Ename as 'ManagerName'
+From Empl as A
+Inner Join
+Empl as B
+ON
+B.Ecode=A.ReportTo
+
+
+ 
+
+
+
+
+
+
